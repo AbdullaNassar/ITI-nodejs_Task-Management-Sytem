@@ -1,23 +1,39 @@
-exports.getAllTasks = function (req, res) {
-  res.send("getAllTasks");
+const Task = require('../models/taskModel.js');
+
+function getAllTasks() {
+  const tasks = Task.find();
+  return tasks;
 };
 
-exports.createTask = function (req, res) {
-  res.send("add task");
+function createTask(data) {
+  const task = Task.create(data);
+  return task;
 };
 
-exports.updateTask = function (req, res) {
-  res.send("update task");
+function updateTask(id,data) {
+  const task = Task.findOneAndUpdate(id,data,{new:true,runValidators:true});
+  return task;
+};
+function deleteAllTasks() {
+  const data = Task.deleteMany({});
+  return data;
 };
 
-exports.deleteAllTasks = function (req, res) {
-  res.send("delete all tasks");
+function deleteOneTask(id) {
+  const data = Task.deleteOne({_id:id})
+  return data;
 };
 
-exports.deleteOneTask = function (req, res) {
-  res.send("delete one tasks");
+function getTask(id) {
+  const task = Task.findOne({_id:id});
+  return task;
 };
 
-exports.getTask = function (req, res) {
-  res.send("get task");
-};
+module.exports = {
+  getAllTasks,
+  createTask,
+  updateTask,
+  deleteAllTasks,
+  deleteOneTask,
+  getTask
+}
