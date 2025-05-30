@@ -1,40 +1,46 @@
 const User = require('../models/userModel.js');
 
-function createUser(data) {
-    const user = User.create(data);
-    return user;
+const createUser = (req,res) => {
+    const user = User.create(req.body);
+    res.json(user);
 };
 
-function getUsers(){
+const  getUsers = (req,res)=> {
     const users = User.find();
-    return users;
+    res.json(users);
 }
 
-function getUser(id){
+const getUser = (req,res)=> {
+    const {id} = req.params;
     const user = User.findOne({_id:id});
-    return user;
+    res.json(user);
 }
 
-function updateUser(id,data){
-    const user = User.findOneAndUpdate(id,data,{new:true,runValidators:true});
-    return user;
+const updateUser = (req,res)=> {
+    const {id} = req.params;
+    const user = User.findOneAndUpdate(id,req.body,{new:true,runValidators:true});
+    res.json(user);
 }
 
-function deleteUser(id){
+const deleteUser = (req,res)=> {
+    const {id} = req.params;
     const data = User.deleteOne({_id:id});
-    return data;
+    res.json(data);
 }
 
-function deleteAllUsers(){
+const deleteAllUsers = (req,res)=> {
     const data = User.deleteMany({});
-    return data;
+    res.json(data);
 }
+
+
+
 
 module.exports = {
     createUser,
-    getUsers,
     getUser,
+    getUsers,
     updateUser,
-    deleteUser,
-    deleteAllUsers
-}
+    deleteAllUsers,
+    deleteUser
+};

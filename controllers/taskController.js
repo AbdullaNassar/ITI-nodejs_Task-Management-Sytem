@@ -1,39 +1,42 @@
 const Task = require('../models/taskModel.js');
 
-function getAllTasks() {
+const getAllTasks = (req,res)=> {
   const tasks = Task.find();
-  return tasks;
+  res.json(tasks);
 };
 
-function createTask(data) {
-  const task = Task.create(data);
-  return task;
+const createTask = (req,res)=> {
+  const task = Task.create(req.body);
+  res.json(task);
 };
 
-function updateTask(id,data) {
-  const task = Task.findOneAndUpdate(id,data,{new:true,runValidators:true});
-  return task;
+const updateTask = (req,res)=> {
+  const {id} = req.params;
+  const task = Task.findOneAndUpdate(id,req.body,{new:true,runValidators:true});
+  res.json(task);
 };
-function deleteAllTasks() {
+const deleteAllTasks = (req,res)=> {
   const data = Task.deleteMany({});
-  return data;
+  res.json(data);
 };
 
-function deleteOneTask(id) {
-  const data = Task.deleteOne({_id:id})
-  return data;
+const deleteOneTask = (req,res)=> {
+  const {id} = req.params;
+  const data = Task.deleteOne({_id:id});
+  res.json(data);
 };
 
-function getTask(id) {
+const getTask = (req,res)=> {
+  const {id} = req.params;
   const task = Task.findOne({_id:id});
-  return task;
+  res.json(task);
 };
 
 module.exports = {
-  getAllTasks,
   createTask,
+  getTask,
+  getAllTasks,
   updateTask,
-  deleteAllTasks,
   deleteOneTask,
-  getTask
-}
+  deleteAllTasks
+};
