@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema({
     minlength: 3,
     maxlength: 10,
   },
+  email: {
+    type: String,
+    default: "abdalax000@gmail.com",
+  },
   userName: {
     type: String,
     required: true,

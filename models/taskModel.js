@@ -28,6 +28,10 @@ const taskSchema = new mongoose.Schema({
     type: mongoose.SchemaTypes.ObjectId,
     ref: "User",
   },
+  reminder: {
+    type: Date,
+    default: Date.now() + 1000 * 60 * 60,
+  },
 });
 
 // create index on fields
@@ -35,6 +39,9 @@ taskSchema.index({ title: 1 });
 taskSchema.index({ description: 1 });
 taskSchema.index({ category: 1 });
 taskSchema.index({ priority: 1 });
+
+// compound index for reminder job
+taskSchema.index({ reminder: 1 }, { status: 1 });
 
 taskSchema.pre(/^find/, function (next) {
   this.populate({

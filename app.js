@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const userRouter = require("./routes/userRoutes");
 const taskRouter = require("./routes/taskRoutes");
+const { cronReminder } = require("./utils/reminderJob");
 
 dotenv.config({ path: "config.env" });
 const app = express();
@@ -22,6 +23,9 @@ mongoose
   .connect(DB)
   .then(() => {
     console.log("connected to db successful");
+
+    //when connected to DB, run reminderJob
+    cronReminder();
   })
   .catch((err) => {
     console.log("error while connected to db");
