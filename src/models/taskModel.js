@@ -41,7 +41,7 @@ taskSchema.index({ category: 1 });
 taskSchema.index({ priority: 1 });
 
 // compound index for reminder job
-taskSchema.index({ reminder: 1 }, { status: 1 });
+taskSchema.index({ reminder: 1, status: 1 });
 
 taskSchema.pre(/^find/, function (next) {
   this.populate({
