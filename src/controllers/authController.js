@@ -10,14 +10,19 @@ exports.login = async (req, res) => {
   try {
     const { userName, password } = req?.body;
     if (!userName || !password) {
-      res.status(400).json({
-        status: "faield",
-        message: "please provide valid userName and password",
+      return res.status(400).json({
+        status: "failed",
+        message: "you must provide an username and password",
       });
     }
-    // res.send("ok");
-    const user = await User.findOne({ userName: userName });
-    const isCorrectPassword = await user?.isCorrectPassword(
+    let user = await User.findOne({ userName: userName });
+    if (!user) {
+      return res.status(404).json({
+        status: "failed",
+        message: "you must provide an username and password",
+      });
+    }
+    let isCorrectPassword = await user?.isCorrectPassword(
       password,
       user.password
     );
@@ -28,7 +33,6 @@ exports.login = async (req, res) => {
       });
     }
 
-    // if everythig ok, send token
     const token = signToken(user._id);
     res.status(200).json({
       status: "success",
