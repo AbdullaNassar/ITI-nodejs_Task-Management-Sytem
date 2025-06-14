@@ -27,6 +27,7 @@ TaskMaster is a project management system that allows users to organize and trac
 The backend is hosted at: [https://bedecked-functional-turkey.glitch.me/](https://bedecked-functional-turkey.glitch.me/)
 
 ### API Endpoints
+For more info about API endpoints, see Postman documentation: [https://documenter.getpostman.com/view/45111734/2sB2x3otzm]
 
 | Action                  | HTTP Method | Route                |
 |-------------------------|-------------|----------------------|
